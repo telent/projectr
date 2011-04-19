@@ -33,7 +33,7 @@ class Projectr::Project
     end
   end
   def file(name)
-    @source_files << Dep.new(File.join(*@prefix,name+".rb"))
+    @source_files << Dep.new(File.join(*@prefix,name.to_s+".rb"))
   end
 
   def load!(args={})
