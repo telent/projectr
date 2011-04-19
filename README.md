@@ -15,6 +15,26 @@ the project contents that can be interrogated for the purposes of e.g.
 
 * probably other stuff I haven't thought of yet
 
+    Projectr::Project.new :test do
+      # directories may be named by symbols or strings
+      directory :example do
+        #as may files
+        file "file1"
+        file :file2
+        directory "subdir" do 
+          file :subdir_file
+        end
+      end
+    end
+
+    h=Projectr::Proejct[:test]
+    h.load!
+    # and again
+    h.load!   # nothing happens this time
+    # touch example/file1.rb
+    h.load!   # loads only the changed file
+
+
 Common Lisp hackers will know what I mean when I say "it's Defsystem in 
 Ruby".  They will then shortly be disappointed when they realise just
 how little it actually does (almost nothing whatsoever) compared to the
@@ -24,4 +44,3 @@ guys.
 Syntax is not yet set in stone.  Examples and tests and things will
 start appearing as I tease them out of the other apps that they are
 currently embedded in
-
