@@ -1,22 +1,19 @@
 require 'projectr'
+require 'fileutils'
 
-Projectr::Project.new :test do
-  # directories may be named by symbols or strings
-  directory :example do
-    #as may files
-    file "file1"
-    file :file2
-    directory "subdir" do 
-      file :subdir_file
-    end
-  end
-end
+load "fixture/test.project.rb"
 
 describe Projectr::Project do
   p=Projectr::Project[:test] 
-  it "should contain the specified files in the specified order" do
+  it "contains the specified files in the specified order" do
     p.source_files.map(&:name).should ==
       (["example/file1.rb","example/file2.rb","example/subdir/subdir_file.rb"].
-       map{|x| File.expand_path(x,File.dirname(__FILE__)) })
+       map{|x| File.expand_path(x,File.join(File.dirname(__FILE__),"fixture")) })
+  end
+  it "finds the project and loads it" do
+    p1=Projectr::Project[:test]
+    p2=Projectr::Project.find :test
+    p1.should == p2
+    p1.load!
   end
 end

@@ -45,7 +45,7 @@ class Projectr::Project
       load @sysdef_file
       # +self+ is now stale, so call the new system definition object's
       # method instead
-      return Defsys[@name].load!(force)
+      return self.class[@name].load!(force)
     end
     @source_files.each do |f|
       name=f.name
