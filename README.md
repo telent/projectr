@@ -15,6 +15,8 @@ the project contents that can be interrogated for the purposes of e.g.
 
 * probably other stuff I haven't thought of yet
 
+Here's an example
+
     Projectr::Project.new :test do
       # directories may be named by symbols or strings
       directory :example do
