@@ -15,7 +15,7 @@ the project contents that can be interrogated for the purposes of e.g.
 
 * probably other stuff I haven't thought of yet
 
-Here's an example
+Here's an example:
 
     Projectr::Project.new :test do
       # directories may be named by symbols or strings
@@ -29,7 +29,7 @@ Here's an example
       end
     end
 
-    h=Projectr::Proejct[:test]
+    h=Projectr::Project[:test]
     h.load!
     # and again
     h.load!   # nothing happens this time
