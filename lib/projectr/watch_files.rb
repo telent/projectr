@@ -3,8 +3,9 @@
 
 if RUBY_PLATFORM.match(/linux/) then
   require "rb-inotify"
-  
+
   class Projectr::FileChangeWatcher < INotify::Notifier
+    
     def initialize(files)
       super()
       @files=files
@@ -40,8 +41,9 @@ class Projectr::Project
   # Returns some object that responds to #to_io and to #changed_files.
   # #to_io is an IO object that becomes ready for io when one or more
   # of the project source files have been changed, and so can be 
-  # checked as pat of an application event loop.  #changed_files
-  # is an array of the files in which changes were detected
+  # checked as part of an application event loop.  #changed_files
+  # is an array of the files in which changes have been detected
+  # since it was last called
   def watch_changes(&blk)
     Projectr::FileChangeWatcher.new(@source_files,&blk)
   end
