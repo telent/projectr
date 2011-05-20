@@ -17,7 +17,7 @@ describe Projectr::Project do
     p1.load!
   end
   it "detects filesystem changes" do
-    require 'projectr/watch_files'
+    require 'projectr/watch_changes'
     w=p.watch_changes
     w.changed_files.should be_empty
     require 'fileutils'
