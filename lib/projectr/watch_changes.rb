@@ -16,8 +16,7 @@ if RUBY_PLATFORM.match(/linux/) then
 
     # #to_io is required to be implemented; we inherit it from superclass
 
-    # return a list of changed files.  This interface may change: I am not 
-    # sure if a list of Deps would be more useful
+    # return a list of changed files. 
     def changed_files
       a=[self.to_io]
       # don't block
@@ -43,7 +42,7 @@ class Projectr::Project
   # of the project source files have been changed, and so can be 
   # checked as part of an application event loop.  #changed_files
   # is an array of the files in which changes have been detected
-  # since it was last called
+  # since it was last called.
   def watch_changes(&blk)
     Projectr::FileChangeWatcher.new(@source_files,&blk)
   end
