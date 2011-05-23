@@ -7,7 +7,8 @@ describe Projectr::Project do
   p=Projectr::Project[:test] 
   it "contains the specified files in the specified order" do
     p.source_files.map(&:name).should ==
-      (["example/file1.rb","example/file2.rb","example/subdir/subdir_file.rb"].
+      (["example/file1.rb","example/file2.rb","example/file3.rb",
+        "example/subdir/subdir_file.rb"].
        map{|x| File.expand_path(x,File.join(File.dirname(__FILE__),"fixture")) })
   end
   it "finds the project and loads it" do
@@ -15,6 +16,17 @@ describe Projectr::Project do
     p2=Projectr::Project.find :test
     p1.should == p2
     p1.load!
+  end
+  it "reloads changed files and files depending on them" do
+    p1=Projectr::Project[:test]
+    p1.load!
+    ($file1 && $file2 && $file3).should be true
+    $file1=nil;    $file2=nil;    $file3=nil
+    f=File.expand_path("example/file1.rb",File.join(File.dirname(__FILE__),"fixture"))
+    FileUtils.touch f
+    p1.load!
+    $file2.should be nil
+    ($file1 && $file3).should be true
   end
   it "detects filesystem changes" do
     require 'projectr/watch_changes'

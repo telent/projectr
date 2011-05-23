@@ -1,2 +1,2 @@
-$file1=true
+$file3=true
 warn __FILE__
